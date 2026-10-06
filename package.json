@@ -1,0 +1,77 @@
+{
+  "name": "@veeemlab/datto-bcdr-mcp",
+  "version": "0.1.0",
+  "description": "Datto BCDR (SIRIS, ALTO, Cloud SIRIS) MCP server: fleet-wide backup health checks, client overview, screenshot verification. Read-only, rate-limit safe, flat schemas.",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "datto-bcdr-mcp": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc && chmod +x dist/index.js",
+    "prepare": "npm run build || echo 'prepare: build skipped'",
+    "prepublishOnly": "npm run build",
+    "start": "node dist/index.js",
+    "start:http": "MCP_TRANSPORT=http node dist/index.js",
+    "dev": "tsx watch src/index.ts",
+    "inspect": "npx @modelcontextprotocol/inspector node dist/index.js",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "smoke": "tsx src/smoke.ts"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.1",
+    "express": "^5.2.1",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.5",
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.6.4",
+    "eslint": "^9.39.5",
+    "eslint-config-prettier": "^9.1.2",
+    "prettier": "^3.9.9",
+    "tsx": "^4.23.15",
+    "typescript": "~5.9",
+    "typescript-eslint": "^8.71.1",
+    "vitest": "^5.0.3"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "datto",
+    "bcdr",
+    "siris",
+    "alto",
+    "backup",
+    "kaseya",
+    "msp",
+    "claude",
+    "copilot-studio"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/veeemlab/datto-bcdr-mcp.git"
+  },
+  "homepage": "https://github.com/veeemlab/datto-bcdr-mcp#readme",
+  "bugs": {
+    "url": "https://github.com/veeemlab/datto-bcdr-mcp/issues"
+  },
+  "author": "Vitalii Morgunov",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  }
+}

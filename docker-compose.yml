@@ -1,0 +1,32 @@
+# HTTP-transport deployment. For stdio (Claude Desktop/Code) run the image
+# directly with `docker run -i` instead — stdio needs an attached stdin/stdout
+# and is not a long-running service.
+services:
+  datto-bcdr-mcp:
+    build: .
+    image: ghcr.io/veeemlab/datto-bcdr-mcp:latest
+    restart: unless-stopped
+    ports:
+      - '127.0.0.1:3000:3000'
+    environment:
+      MCP_TRANSPORT: http
+      # Bind to all interfaces inside the container so the published port works.
+      HOST: 0.0.0.0
+      PORT: '3000'
+      # Provide these via a .env file or your secrets manager:
+      DATTO_BCDR_PUBLIC_KEY: ${DATTO_BCDR_PUBLIC_KEY}
+      DATTO_BCDR_SECRET_KEY: ${DATTO_BCDR_SECRET_KEY}
+      MCP_AUTH_TOKEN: ${MCP_AUTH_TOKEN}
+      # ALLOWED_HOSTS: mcp.example.com
+    healthcheck:
+      test:
+        [
+          'CMD',
+          'node',
+          '-e',
+          "fetch('http://127.0.0.1:3000/healthz').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))",
+        ]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
