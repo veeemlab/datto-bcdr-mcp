@@ -1,6 +1,6 @@
 {
   "name": "@veeemlab/datto-bcdr-mcp",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Datto BCDR (SIRIS, ALTO, Cloud SIRIS) MCP server: fleet-wide backup health checks, client overview, screenshot verification. Read-only, rate-limit safe, flat schemas.",
   "type": "module",
   "main": "dist/index.js",
